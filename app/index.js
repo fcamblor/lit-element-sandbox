@@ -1,59 +1,45 @@
+import { LitElement, html } from 'https://unpkg.com/lit-element@2.4.0/lit-element.js?module';
 
-const template = document.createElement(`template`);
-template.innerHTML = `
-    <div>
-      Counter : <button increment>+</button><span displayedVal></span><button decrement>-</button>
-      <slot name="content"></slot>
-    </div>
-`;
 
-class CounterComponent extends HTMLElement {
-    static get observedAttributes() {
-        return ['value','max'];
+class CounterComponent extends LitElement {
+    static get properties() {
+        return {
+            value: {type: Number},
+            max: {type: Number}
+        };
     }
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
 
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.max = Infinity;
+        this.value = 1;
+    }
 
-        this.incrementBtn = this.shadowRoot.querySelector("[increment]")
-        this.decrementBtn = this.shadowRoot.querySelector("[decrement]")
-        this.displayedValue = this.shadowRoot.querySelector("[displayedVal]")
+    render() {
+        return html`
+            <div>
+              Counter : <button @click="${this.increment}">+</button>${this.value}</span><button @click="${this.decrement}">-</button>
+              <slot name="content"></slot>
+            </div>
+        `;
     }
 
     connectedCallback() {
+        super.connectedCallback();
         console.log("connected callback")
-        this.incrementBtn.addEventListener('click', () => {
-            this.setAttribute('value', Math.min(this.#getValue()+1, Number(this.getAttribute('max'))))
-        })
-        this.decrementBtn.addEventListener('click', () => {
-            this.setAttribute('value', this.#getValue()-1);
-        })
-        if(!this.hasAttribute('max')) {
-            this.setAttribute('max', Infinity);
-        }
-        if(!this.hasAttribute('value')) {
-            this.setAttribute('value', 1);
-        }
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        console.log('hello-world element attributes changed.');
-        this.displayedValue.innerText = this.#getValue();
+    increment(event) {
+        this.value = Math.min(this.value+1, this.max);
+    }
+    decrement(event) {
+        this.value--;
     }
 
     disconnectedCallback() {
+        super.disconnectedCallback();
         console.log("disconnected callback")
-        this.incrementBtn.removeEventListener('click')
-        this.decrementBtn.removeEventListener('click')
-    }
-
-    #getValue() {
-        // getAttribute() always stores attribute as a stringified one, meaning that we need to
-        // convert it to non-string when needed
-        return Number(this.getAttribute('value'));
     }
 }
 
