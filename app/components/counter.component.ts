@@ -12,6 +12,7 @@ export class CounterComponent extends LitElement {
               <button @click="${this.increment}">+</button>
               ${this.value}
               <button @click="${this.decrement}">-</button>
+              <slot name="content"></slot>
             </div>
         `;
     }
