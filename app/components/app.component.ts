@@ -1,6 +1,7 @@
 import {css, customElement, html, LitElement, property} from "lit-element";
 import page from "page";
 import Context = PageJS.Context;
+import {lazyload} from "../utilities/lazyload";
 
 @customElement('hello-app')
 class AppComponent extends LitElement {
@@ -59,12 +60,13 @@ class AppComponent extends LitElement {
             case 'home': return html`
               Hello <strong>world</strong> !
             `;
-            case 'counters': case 'counters-with-value': return html`
-              <hello-counter .value="${this.value}" @value-changed="${(e: HTMLElementEventMap['value-changed']) => this.value = e.detail.value }" max="20">
-                <p slot="content">Hello <strong>world</strong> !</p>
-              </hello-counter>
-              <hello-counter .value="${this.value}" @value-changed="${(e: HTMLElementEventMap['value-changed']) => this.value = e.detail.value }" max="10"></hello-counter>
-            `;
+            case 'counters': case 'counters-with-value':
+                return lazyload(import('./counter.component'), html`
+                  <hello-counter .value="${this.value}" @value-changed="${(e: HTMLElementEventMap['value-changed']) => this.value = e.detail.value }" max="20">
+                    <p slot="content">Hello <strong>world</strong> !</p>
+                  </hello-counter>
+                  <hello-counter .value="${this.value}" @value-changed="${(e: HTMLElementEventMap['value-changed']) => this.value = e.detail.value }" max="10"></hello-counter>
+                `);
         }
     }
 
