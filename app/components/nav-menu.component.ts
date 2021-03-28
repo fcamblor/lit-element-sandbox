@@ -20,6 +20,7 @@ class AppNavMenuComponent extends LitElement {
               <li class="${classMap({selected: this.selected==='home'})}" @click="${() => page('/home')}">Home</li>
               <li class="${classMap({selected: this.selected==='counters'})}" @click="${() => page('/counters')}">Counters</li>
               <li class="${classMap({selected: this.selected==='counters-with-value'})}" @click="${() => page('/counters/13')}">Counters with 13</li>
+              <li class="${classMap({selected: this.selected==='listing'})}" @click="${() => page('/listing')}">Listing</li>
             </ul>
         `;
     }

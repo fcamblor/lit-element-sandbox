@@ -20,7 +20,7 @@ class AppComponent extends LitElement {
   `;
 
     @property({type: Number}) value = 2;
-    @property() currentView: "home"|"counters"|"counters-with-value" = "home";
+    @property() currentView: "home"|"counters"|"counters-with-value"|"listing" = "home";
 
     constructor() {
         super();
@@ -30,15 +30,12 @@ class AppComponent extends LitElement {
     private _installRoutes() {
         page.redirect('/', '/home');
         page.redirect('/index.html', '/home');
-        page('/home', () => this._homeRoute());
+        page('/home', () => this.currentView = 'home');
+        page('/listing', () => this.currentView = 'listing');
         page('/counters', (context) => this._countersRoute(context));
         page('/counters/:value', (context) => this._countersRoute(context));
         page('*', () => this._notFoundRoute());
         page();
-    }
-
-    private _homeRoute() {
-        this.currentView = "home";
     }
 
     private _countersRoute(context: Context) {
@@ -67,6 +64,10 @@ class AppComponent extends LitElement {
                   </hello-counter>
                   <hello-counter .value="${this.value}" @value-changed="${(e: HTMLElementEventMap['value-changed']) => this.value = e.detail.value }" max="10"></hello-counter>
                 `);
+            case 'listing':
+                return lazyload(
+                    import('./listing.component'),
+                    html`<hello-listing></hello-listing>`);
         }
     }
 
