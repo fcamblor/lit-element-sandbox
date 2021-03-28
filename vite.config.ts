@@ -4,12 +4,5 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   root: 'app',
   build: {
-    lib: {
-      entry: 'app/my-element.ts',
-      formats: ['es']
-    },
-    rollupOptions: {
-      external: /^lit-element/
-    }
   }
 })
