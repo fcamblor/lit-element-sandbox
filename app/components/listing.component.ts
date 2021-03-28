@@ -1,5 +1,6 @@
 import { LitElement, html, customElement } from 'lit-element'
 import {lazyload} from "../utilities/lazyload";
+import {repeat} from 'lit-html/directives/repeat'
 
 @customElement('hello-listing')
 export class ListingComponent extends LitElement {
@@ -21,7 +22,7 @@ export class ListingComponent extends LitElement {
             import('./counter.component'),
             html`
           <ul>
-            ${this.counterValues.map((counterVal) => html`
+            ${repeat(this.counterValues, cv => cv.id, (counterVal) => html`
               <li>
                 <hello-counter .value="${counterVal.val}" max="20"></hello-counter>
                 <button @click="${() => this.removeCounter(counterVal.id)}">delete</button>
