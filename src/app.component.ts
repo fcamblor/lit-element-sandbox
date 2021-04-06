@@ -16,9 +16,9 @@ export class MyAppComponent extends LitElement {
 
     render() {
         return html`
-              <my-counter value="${this.sharedValue}" @value-changed="${(event: CustomEvent<CounterChange>) => this.sharedValue = event.detail.value}"></my-counter>
-              <my-counter value="${this.sharedValue}" @value-changed="${(event: CustomEvent<CounterChange>) => this.sharedValue = event.detail.value}"></my-counter>
-          </div>
+              <my-counter value="${this.sharedValue}" @value-changed="${(event: CustomEvent<CounterChange>) => this.sharedValue = event.detail.value}">
+                <span slot="test">Hello <strong>world !</strong> (${this.sharedValue})</span>
+              </my-counter>
         `;
     }
 
