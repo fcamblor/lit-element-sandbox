@@ -14,8 +14,8 @@
     "dev": "vite",
     "build": "tsc && vite build"
   },
-  "dependencies": {
-  },
   "devDependencies": {
+    "typescript": "4.2.3",
+    "vite": "2.1.5"
   }
 }
