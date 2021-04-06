@@ -66,6 +66,7 @@ export class MyAppComponent extends LitElement {
               </my-counter>
               <my-counter value="${this.sharedValue}" @value-changed="${(event: CustomEvent<CounterChange>) => this.sharedValue = event.detail.value}"></my-counter>
             `
+            case 'list': return html`<my-list></my-list>`
         }
         throw new Error(`View not handled : ${this.viewName}`);
     }

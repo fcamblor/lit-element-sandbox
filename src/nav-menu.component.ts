@@ -25,6 +25,7 @@ export class MyNavMenuComponent extends LitElement {
                 <li><a href="/home" class="${classMap({ selected: this.currentView==='home' })}">Home</a></li>
                 <li><a href="/counters" class="${classMap({ selected: this.currentView==='counters' })}">Counters</a></li>
                 <li><a href="/counters/42">Counters 42</a></li>
+                <li><a href="/list" class="${classMap({ selected: this.currentView==='list' })}">List</a></li>
             </ul>
         `;
     }
