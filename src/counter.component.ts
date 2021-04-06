@@ -1,5 +1,7 @@
 import {LitElement, html, customElement, property, css} from 'lit-element';
 
+export type CounterChange = { value: number };
+
 @customElement('my-counter')
 export class CounterComponent extends LitElement {
 
@@ -7,7 +9,23 @@ export class CounterComponent extends LitElement {
     static styles = css`
     `;
 
-    @property({type: Number}) value = 10;
+    @property({type: Number}) set value(val: number) {
+        if(val !== this._value) {
+            this._value = val;
+            this.requestUpdate('value');
+            this.dispatchEvent(new CustomEvent<CounterChange>('value-changed', {
+                detail: {
+                    value: val
+                }
+            }));
+        }
+    }
+    get value() { return this._value; }
+    private _value: number = 10;
+
+    constructor() {
+        super();
+    }
 
     render() {
         return html`
