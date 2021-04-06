@@ -56,7 +56,7 @@ export class MyListComponent extends LitElement {
     render() {
         return html`
             <table>
-              ${this.characters.map((character) => {
+              ${repeat(this.characters, (character) => character.id, (character) => {
                   return html`
                     <tr>
                       <td><img src="${character.thumbnail.path}.${character.thumbnail.extension}" /></td>
