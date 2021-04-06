@@ -15,8 +15,10 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
+    "@types/page": "1.11.2",
     "bootstrap": "4.6.0",
-    "lit-element": "2.4.0"
+    "lit-element": "2.4.0",
+    "page": "1.11.6"
   },
   "devDependencies": {
     "sass": "1.32.8",
