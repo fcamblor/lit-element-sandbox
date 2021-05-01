@@ -15,7 +15,12 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
+    "@types/page": "1.11.2",
+    "lit-element": "2.4.0",
+    "page": "1.11.6"
   },
   "devDependencies": {
+    "typescript": "4.2.3",
+    "vite": "2.1.5"
   }
 }
